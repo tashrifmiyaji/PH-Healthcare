@@ -1,7 +1,7 @@
 import z from "zod";
 
  const PatientRegistrationZodSchema = z.object({
-    name: z.string("Not A String!!!!!").min(3, "Name must at least 3 characters long!!!").max(10),
+    name: z.string("Not A String!!!!!").min(3, "Name must at least 3 characters long!!!").max(30),
     email: z.email("Not email!!"),
     password: z.string()
         .min(8, "Password Must Minimum 8 Characters Long.")
