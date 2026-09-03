@@ -7,7 +7,10 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!src/app/templates"]
+		"includes": [
+			"**",
+			"!src/app/templates"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -21,14 +24,14 @@
 				"noCommaOperator": "info"
 			},
 			"correctness": {
-				"noUnusedFunctionParameters" : "off"
+				"noUnusedFunctionParameters": "off"
 			},
 			"suspicious": {
 				"noExplicitAny": "off"
 			},
 			"style": {
 				"noNonNullAssertion": "off",
-				"useNodejsImportProtocol" : "off",
+				"useNodejsImportProtocol": "off",
 				"useImportType": "off"
 			}
 		}
@@ -42,7 +45,7 @@
 		"enabled": true,
 		"actions": {
 			"source": {
-				"organizeImports": "on"
+				"organizeImports": "off"
 			}
 		}
 	}

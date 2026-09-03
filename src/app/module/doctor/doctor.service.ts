@@ -1,9 +1,11 @@
 import bcrypt from "bcryptjs";
 import type { UploadApiResponse } from "cloudinary";
+import httpStatus from "http-status";
 import { Role } from "../../../generated/prisma/enums";
 import config from "../../config";
 import { cloudinary } from "../../lib/cloudinary";
 import { prisma } from "../../lib/prisma";
+import { AppError } from "../../utils/AppError";
 
 const applyAsDoctor = async (
 	payload: any,
@@ -17,7 +19,10 @@ const applyAsDoctor = async (
 	});
 
 	if (isUserExists) {
-		throw new Error("User Already Exists With This Email");
+		throw new AppError(
+			httpStatus.CONFLICT,
+			"User Already Exists With This Email",
+		);
 	}
 
 	const resumeUploadResult = await new Promise<UploadApiResponse>(
@@ -34,7 +39,12 @@ const applyAsDoctor = async (
 						}
 
 						if (!result) {
-							return reject(new Error("No result returned from Cloudinary"));
+							return reject(
+								new AppError(
+									httpStatus.INTERNAL_SERVER_ERROR,
+									"No result returned from Cloudinary",
+								),
+							);
 						}
 
 						resolve(result);
@@ -59,7 +69,12 @@ const applyAsDoctor = async (
 							}
 
 							if (!result) {
-								return reject(new Error("No result returned from Cloudinary"));
+								return reject(
+									new AppError(
+										httpStatus.INTERNAL_SERVER_ERROR,
+										"No result returned from Cloudinary",
+									),
+								);
 							}
 
 							resolve(result);
