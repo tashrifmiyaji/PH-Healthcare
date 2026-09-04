@@ -145,7 +145,7 @@ const applyAsDoctor = async (
 		},
 	});
 
-	const tempatePath = path.join(
+	const templatePath = path.join(
 		process.cwd(),
 		"src/app/templates/registration-user-otp.ejs",
 	);
@@ -157,7 +157,7 @@ const applyAsDoctor = async (
 		expirationMinutes: expirationSeconds / 60,
 	};
 
-	const html = await ejs.renderFile(tempatePath, templateData);
+	const html = await ejs.renderFile(templatePath, templateData);
 
 	await transporter.sendMail({
 		from: config.email_sender,
@@ -273,7 +273,7 @@ const approveDoctor = async (
 
 	const isApproved = verificationStatus === DoctorVerificationStatus.APPROVED;
 
-	const tempatePath = path.join(
+	const templatePath = path.join(
 		process.cwd(),
 		`src/app/templates/${
 			isApproved
@@ -287,7 +287,7 @@ const approveDoctor = async (
 		reason: updatedDoctor.rejectionReason,
 	};
 
-	const html = await ejs.renderFile(tempatePath, templateData);
+	const html = await ejs.renderFile(templatePath, templateData);
 
 	await transporter.sendMail({
 		from: config.email_sender,
