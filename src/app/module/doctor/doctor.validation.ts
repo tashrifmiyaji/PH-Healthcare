@@ -24,8 +24,7 @@ export const ApplyAsDoctorValidationZodSchema = z.object({
 		experienceYears: z
 			.number()
 			.int("Experience years must be an integer")
-			.min(0, "Experience years cannot be negative")
-			.optional(),
+			.min(0, "Experience years cannot be negative"),
 
 		bio: z
 			.string()
