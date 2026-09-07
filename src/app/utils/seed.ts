@@ -1,11 +1,10 @@
 import bcrypt from "bcryptjs";
 import httpStatus from "http-status";
-import { Role } from "../../generated/prisma/enums";
+import { DoctorVerificationStatus, Role } from "../../generated/prisma/enums";
 import config from "../config";
 import { prisma } from "../lib/prisma";
 import { AppError } from "./AppError";
 
-// create super admin
 export const seedSuperAdmin = async () => {
 	try {
 		const isSuperAdminExist = await prisma.user.findFirst({
@@ -127,7 +126,7 @@ export const seedTesterDoctor = async () => {
 
 		const name = config.tester_doctor_name;
 		const email = config.tester_doctor_email;
-		const password = config.tester_admin_password;
+		const password = config.tester_doctor_password;
 
 		if (!name || !email || !password) {
 			throw new AppError(
@@ -157,6 +156,7 @@ export const seedTesterDoctor = async () => {
 						licenseNumber: "BMDC0000",
 						qualifications: "MBBS",
 						specialization: "Neurology",
+						verificationStatus: DoctorVerificationStatus.APPROVED,
 					},
 				},
 			},
