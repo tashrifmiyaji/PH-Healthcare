@@ -7,9 +7,9 @@ import { AppError } from "./AppError";
 
 export const seedSuperAdmin = async () => {
 	try {
-		const isSuperAdminExist = await prisma.user.findFirst({
+		const isSuperAdminExist = await prisma.user.findUnique({
 			where: {
-				role: Role.SUPER_ADMIN,
+				email: config.super_admin_email
 			},
 		});
 
