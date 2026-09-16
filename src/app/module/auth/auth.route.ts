@@ -14,7 +14,7 @@ router.post(
 );
 router.post("/verify-email",
 	validateRequest(UserValidation.PatientEmailVerifyZodSchema),
-	 AuthController.verifyPatientEmail);
+	AuthController.verifyPatientEmail);
 router.post(
 	"/login",
 	validateRequest(UserValidation.LoginZodSchema),
@@ -36,5 +36,9 @@ router.post(
 	"/reset-password",
 	validateRequest(UserValidation.ResetPasswordZodSchema),
 	AuthController.resetPassword,
+);
+router.post(
+	"/logout",
+	AuthController.logOut,
 );
 export const AuthRoutes = router;

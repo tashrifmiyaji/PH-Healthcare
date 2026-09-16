@@ -139,7 +139,7 @@ const googleLogin = catchAsync(async (req: Request, res: Response) => {
 
 	res.cookie("accessToken", accessToken, {
 		httpOnly: true,
-	secure: config.node_env === "development" ? false : true,
+		secure: config.node_env === "development" ? false : true,
 		sameSite: config.node_env === "development" ? "lax" : "none",
 		maxAge: 1000 * 60 * 60 * 24, // 24 hour or 1 day
 	});
@@ -185,6 +185,19 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 
+const logOut = catchAsync(async (req: Request, res: Response) => {
+
+	res.clearCookie("accessToken");
+	res.clearCookie("refreshToken");
+
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "logout Successfully",
+		data: null,
+	});
+});
+
 export const AuthController = {
 	registerPatient,
 	verifyPatientEmail,
@@ -194,4 +207,5 @@ export const AuthController = {
 	googleLogin,
 	forgotPassword,
 	resetPassword,
+	logOut
 };
