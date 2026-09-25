@@ -41,6 +41,13 @@ const applyAsDoctor = async (
 		);
 	}
 
+	if (!resume) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"Resume is required",
+		);
+	}
+	
 	const resumeUploadResult = await new Promise<UploadApiResponse>(
 		(resolve, reject) => {
 			cloudinary.uploader
@@ -66,7 +73,7 @@ const applyAsDoctor = async (
 						resolve(result);
 					},
 				)
-				.end(resume?.buffer);
+				.end(resume.buffer);
 		},
 	);
 
@@ -275,10 +282,9 @@ const approveDoctor = async (
 
 	const templatePath = path.join(
 		process.cwd(),
-		`src/app/templates/${
-			isApproved
-				? "doctor-application-approved.ejs"
-				: "doctor-application-rejected.ejs"
+		`src/app/templates/${isApproved
+			? "doctor-application-approved.ejs"
+			: "doctor-application-rejected.ejs"
 		}`,
 	);
 
