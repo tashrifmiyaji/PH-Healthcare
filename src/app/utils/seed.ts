@@ -7,17 +7,6 @@ import { AppError } from "./AppError";
 
 export const seedSuperAdmin = async () => {
 	try {
-		const isSuperAdminExist = await prisma.user.findUnique({
-			where: {
-				email: config.super_admin_email
-			},
-		});
-
-		if (isSuperAdminExist) {
-			console.log("Super Admin Already Exists!");
-			return;
-		}
-
 		const name = config.super_admin_name;
 		const email = config.super_admin_email;
 		const password = config.super_admin_password;
@@ -27,6 +16,17 @@ export const seedSuperAdmin = async () => {
 				httpStatus.INTERNAL_SERVER_ERROR,
 				"Super Admin Name , Email, Password Missing In Env File!!!",
 			);
+		}
+
+		const isSuperAdminExist = await prisma.user.findUnique({
+			where: {
+				email,
+			},
+		});
+
+		if (isSuperAdminExist) {
+			console.log("Super Admin Already Exists!");
+			return;
 		}
 
 		const hashedPassword = await bcrypt.hash(
