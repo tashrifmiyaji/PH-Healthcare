@@ -28,7 +28,7 @@ router.post(
 router.post(
 	"/approve-doctor",
 	auth(Role.ADMIN, Role.SUPER_ADMIN),
-	DoctorController.verifyDoctorEmail,
+	DoctorController.approveDoctor,
 );
 router.get(
 	"/all-doctors",
