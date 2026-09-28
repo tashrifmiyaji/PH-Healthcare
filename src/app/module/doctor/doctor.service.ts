@@ -153,7 +153,7 @@ const applyAsDoctor = async (
 		},
 	});
 
-	const templatePath = path.join(
+	const tempatePath = path.join(
 		process.cwd(),
 		"src/app/templates/registration-user-otp.ejs",
 	);
@@ -165,7 +165,7 @@ const applyAsDoctor = async (
 		expirationMinutes: expirationSeconds / 60,
 	};
 
-	const html = await ejs.renderFile(templatePath, templateData);
+	const html = await ejs.renderFile(tempatePath, templateData);
 
 	await transporter.sendMail({
 		from: config.email_sender,
@@ -296,7 +296,7 @@ const approveDoctor = async (
 		},
 	});
 
-	const templatePath = path.join(
+	const tempatePath = path.join(
 		process.cwd(),
 		`src/app/templates/${isApproved
 			? "doctor-application-approved.ejs"
@@ -310,7 +310,7 @@ const approveDoctor = async (
 		password: isApproved ? randomDoctorPassword : undefined,
 	};
 
-	const html = await ejs.renderFile(templatePath, templateData);
+	const html = await ejs.renderFile(tempatePath, templateData);
 
 	await transporter.sendMail({
 		from: config.email_sender,
